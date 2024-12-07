@@ -184,13 +184,25 @@ class _HorizontalWeekCalendarState extends State<HorizontalWeekCalendar> {
   DateTime selectedDate = DateTime.now();
   List<DateTime> currentWeek = [];
   int currentWeekIndex = 0;
-
   List<List<DateTime>> listOfWeeks = [];
 
   @override
   void initState() {
     initCalender();
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant HorizontalWeekCalendar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Check if the passed dateTime has changed
+    if (oldWidget.initialDate != widget.initialDate) {
+      setState(() {
+        selectedDate = widget.initialDate;
+      });
+      debugPrint('DateTime updated to: $selectedDate');
+    }
   }
 
   DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
